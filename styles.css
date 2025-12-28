@@ -75,8 +75,9 @@ body {
 }
 
 .logo-link:hover .logo {
-    transform: scale(1.1);
-    box-shadow: 0 6px 16px rgba(0, 208, 132, 0.5);
+    transform: scale(1.15) rotate(10deg);
+    box-shadow: 0 8px 20px rgba(0, 208, 132, 0.6);
+    animation: none;
 }
 
 .nav-menu {
@@ -87,6 +88,7 @@ body {
     width: 100%;
     margin-top: 1rem;
     background-color: var(--secondary-color);
+    animation: slideUp 0.5s ease-out;
 }
 
 .nav-menu.active {
@@ -96,6 +98,7 @@ body {
 .nav-menu li {
     padding: 0.8rem 0;
     border-bottom: 1px solid var(--border-color);
+    animation: fadeInUp 0.5s ease-out both;
 }
 
 .nav-link {
@@ -110,6 +113,7 @@ body {
 .nav-link:hover,
 .nav-link.active {
     color: var(--primary-color);
+    transform: translateX(5px);
 }
 
 .nav-link::after {
@@ -148,6 +152,7 @@ body {
 
 .profile-picture {
     margin-bottom: 1.5rem;
+    animation: bounceIn 1s ease-out;
 }
 
 .profile-picture img {
@@ -158,10 +163,12 @@ body {
     object-fit: cover;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     transition: var(--transition);
+    animation: float 3s ease-in-out infinite;
 }
 
 .profile-picture img:hover {
-    transform: scale(1.05);
+    transform: scale(1.1);
+    animation: none;
 }
 
 .hero-title {
@@ -169,12 +176,14 @@ body {
     font-weight: bold;
     margin-bottom: 0.8rem;
     line-height: 1.2;
+    animation: slideUp 0.8s ease-out 0.2s both;
 }
 
 .hero-subtitle {
     font-size: 1rem;
     margin-bottom: 1.5rem;
     opacity: 0.95;
+    animation: slideUp 0.8s ease-out 0.4s both;
 }
 
 /* ==================== Buttons ==================== */
@@ -189,11 +198,32 @@ body {
     cursor: pointer;
     transition: var(--transition);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.8s ease-out 0.6s both;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(0, 208, 132, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-primary:hover::before {
+    width: 300px;
+    height: 300px;
 }
 
 .btn-primary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 25px rgba(0, 208, 132, 0.4);
 }
 
 /* ==================== Section Styles - Mobile First ==================== */
@@ -261,17 +291,36 @@ section:nth-child(even) {
     border-left: 4px solid var(--primary-color);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: var(--transition);
+    animation: slideUp 0.8s ease-out both;
+    position: relative;
+    overflow: hidden;
+}
+
+.education-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 208, 132, 0.1), transparent);
+    transition: left 0.8s ease;
+}
+
+.education-card:hover::before {
+    left: 100%;
 }
 
 .education-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-10px) translateX(5px);
+    box-shadow: 0 12px 30px rgba(0, 208, 132, 0.2);
 }
 
 .education-card h3 {
     color: var(--primary-color);
     margin-bottom: 0.5rem;
     font-size: 1.1rem;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
 }
 
 .degree-name {
@@ -316,6 +365,13 @@ section:nth-child(even) {
     padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    animation: slideUp 0.8s ease-out both;
+    transition: var(--transition);
+}
+
+.skill-item:hover {
+    box-shadow: 0 8px 20px rgba(0, 208, 132, 0.2);
+    transform: translateY(-5px);
 }
 
 .skill-header {
@@ -350,6 +406,8 @@ section:nth-child(even) {
     background: linear-gradient(90deg, #00d084, #0066ff, #ff3366);
     border-radius: 10px;
     transition: width 1s ease;
+    background-size: 200% 100%;
+    animation: gradientShift 3s ease infinite;
 }
 
 /* Technical Skills Tags */
@@ -370,11 +428,31 @@ section:nth-child(even) {
     font-weight: 500;
     border: 2px solid var(--primary-color);
     transition: var(--transition);
+    animation: slideUp 0.8s ease-out both;
+    position: relative;
+    overflow: hidden;
+}
+
+.skill-tag::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-color);
+    z-index: -1;
+    transition: left 0.5s ease;
+}
+
+.skill-tag:hover::before {
+    left: 0;
 }
 
 .skill-tag:hover {
     background-color: var(--primary-color);
     color: var(--secondary-color);
+    transform: scale(1.05);
 }
 
 /* ==================== Projects Section - Mobile First ==================== */
@@ -390,11 +468,12 @@ section:nth-child(even) {
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: var(--transition);
+    animation: slideUp 0.8s ease-out both;
 }
 
 .project-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-12px) rotateX(5deg);
+    box-shadow: 0 15px 40px rgba(0, 208, 132, 0.25);
 }
 
 .project-image {
@@ -402,10 +481,12 @@ section:nth-child(even) {
     height: 150px;
     background: linear-gradient(135deg, #00d084, #0066ff, #ff3366);
     transition: var(--transition);
+    background-size: 200% 200%;
+    animation: gradientShift 4s ease infinite;
 }
 
 .project-card:hover .project-image {
-    transform: scale(1.05);
+    transform: scale(1.08) rotate(1deg);
 }
 
 .project-content {
@@ -649,6 +730,152 @@ section:nth-child(even) {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+}
+
+/* Floating Animation */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+/* Glow Pulse Animation */
+@keyframes glowPulse {
+    0%, 100% {
+        box-shadow: 0 4px 12px rgba(0, 208, 132, 0.3);
+    }
+    50% {
+        box-shadow: 0 8px 25px rgba(0, 208, 132, 0.6);
+    }
+}
+
+/* Gradient Shift Animation */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Bounce In Animation */
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Slide Up Animation */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Flip Animation */
+@keyframes flipIn {
+    from {
+        opacity: 0;
+        transform: rotateY(90deg);
+    }
+    to {
+        opacity: 1;
+        transform: rotateY(0deg);
+    }
+}
+
+/* Shimmer Animation */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+/* Rotate Animation */
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Scale Pulse */
+@keyframes scalePulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Rainbow Border */
+@keyframes rainbowBorder {
+    0% {
+        border-color: #00d084;
+    }
+    25% {
+        border-color: #0066ff;
+    }
+    50% {
+        border-color: #ff3366;
+    }
+    75% {
+        border-color: #00d084;
+    }
+    100% {
+        border-color: #0066ff;
     }
 }
 
