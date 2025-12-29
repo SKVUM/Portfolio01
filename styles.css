@@ -264,10 +264,7 @@ section:nth-child(even) {
 .section-title {
     font-size: 1.8rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #00d084 0%, #0066ff 50%, #ff3366 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--primary-color);
     text-align: center;
     margin-bottom: 2rem;
     position: relative;
@@ -305,6 +302,76 @@ section:nth-child(even) {
     margin-bottom: 1rem;
     line-height: 1.9;
     letter-spacing: 0.3px;
+}
+
+/* About section subtitle and personal info cards */
+.section-subtitle {
+    text-align: center;
+    color: #667085;
+    margin: 0.5rem 0 2rem 0;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.personal-card {
+    background-color: var(--secondary-color);
+    padding: 1.25rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+    border: 1px solid var(--border-color);
+}
+
+.personal-title {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: var(--dark-color);
+}
+
+.personal-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+}
+
+.info-box {
+    background-color: var(--light-color);
+    padding: 1rem 1.25rem;
+    border-radius: 10px;
+    border-left: 6px solid var(--primary-color);
+    color: var(--dark-color);
+    font-weight: 600;
+    animation: slideUp 0.8s ease-out both;
+    transition: var(--transition);
+}
+
+.info-box:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.info-box:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.info-box:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.info-box:nth-child(4) {
+    animation-delay: 0.3s;
+}
+
+.info-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 208, 132, 0.15);
+}
+
+@media(min-width: 700px) {
+    .personal-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .info-box {
+        font-weight: 600;
+    }
 }
 
 /* ==================== Education Section - Mobile First ==================== */
@@ -436,11 +503,9 @@ section:nth-child(even) {
 
 .progress {
     height: 100%;
-    background: linear-gradient(90deg, #00d084, #0066ff, #ff3366);
+    background-color: var(--primary-color);
     border-radius: 10px;
     transition: width 1s ease;
-    background-size: 200% 100%;
-    animation: gradientShift 3s ease infinite;
 }
 
 /* Technical Skills Tags */
