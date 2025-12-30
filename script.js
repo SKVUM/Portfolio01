@@ -1,5 +1,47 @@
+// ==================== Dark Mode Toggle ==================== //
+function initDarkMode() {
+    const themeToggle = document.getElementById('theme-toggle');
+    if (!themeToggle) return; // safety: exit if button not present
+    const html = document.documentElement;
+    
+    // Check for saved preference or system preference
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        html.classList.add('dark-mode');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    } else {
+        html.classList.remove('dark-mode');
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    }
+    
+    themeToggle.addEventListener('click', () => {
+        // Trigger click and icon animations
+        themeToggle.classList.add('is-active');
+        themeToggle.classList.add('is-rotating');
+        setTimeout(() => {
+            themeToggle.classList.remove('is-active');
+            themeToggle.classList.remove('is-rotating');
+        }, 700);
+
+        html.classList.toggle('dark-mode');
+        const isDark = html.classList.contains('dark-mode');
+        
+        // Update icon with wrapper
+        themeToggle.innerHTML = isDark 
+            ? '<span class="theme-toggle-icon"><i class="fas fa-sun"></i></span>' 
+            : '<span class="theme-toggle-icon"><i class="fas fa-moon"></i></span>';
+        themeToggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+        
+        // Save preference
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+}
+
 // ==================== Mobile Menu Toggle ==================== //
 document.addEventListener('DOMContentLoaded', function() {
+    initDarkMode();
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
