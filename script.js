@@ -330,42 +330,28 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(bar);
     });
 
-    // ==================== Resume Download Button ==================== //
+    // ==================== Resume Download Button (local file) ==================== //
     const downloadBtn = document.getElementById('downloadResumeBtn');
     if (downloadBtn) {
-        downloadBtn.addEventListener('click', async function () {
+        downloadBtn.addEventListener('click', function () {
             const btn = this;
             btn.disabled = true;
             const orig = btn.innerHTML;
             btn.innerHTML = 'Preparing...';
+
             try {
-                // Fetch the Imgur page and extract the og:image URL
-                const pageResp = await fetch('https://imgur.com/uA5fmdF');
-                const pageText = await pageResp.text();
-                const m = pageText.match(/property="og:image" content="([^"]+)"/) || pageText.match(/property='og:image' content='([^']+)'/);
-                const imgUrl = m ? m[1] : 'https://i.imgur.com/uA5fmdF.png';
-
-                // Fetch the image as blob
-                const imgResp = await fetch(imgUrl);
-                if (!imgResp.ok) throw new Error('Image fetch failed');
-                const blob = await imgResp.blob();
-                const ext = (blob.type && blob.type.split('/')[1]) ? blob.type.split('/')[1] : 'png';
-                const filename = `resume.${ext}`;
-
-                const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
-                a.href = url;
-                a.download = filename;
+                a.href = 'Resume.pdf';
+                a.download = 'Resume.pdf';
                 document.body.appendChild(a);
                 a.click();
                 a.remove();
-                URL.revokeObjectURL(url);
 
                 showNotification('Download started', 'success');
             } catch (err) {
                 console.error(err);
-                showNotification('Failed to download resume. Opening Imgur page instead.', 'error');
-                window.open('https://imgur.com/uA5fmdF', '_blank');
+                showNotification('Failed to start download. Opening file instead.', 'error');
+                window.open('Resume.pdf', '_blank');
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = orig;
