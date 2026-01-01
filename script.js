@@ -132,22 +132,25 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Simulate form submission
             // In a real application, you would send this data to a backend server
-            console.log('Form Data:', {
-                name: name,
-                email: email,
-                message: message
-            });
-            
-            // Show success message
-            showNotification('Thank you! Your message has been sent successfully.', 'success');
-            
-            // Reset form
-            this.reset();
-            
-            // Optional: Clear the form after 2 seconds
-            setTimeout(() => {
-                this.reset();
-            }, 2000);
+                // Open WhatsApp with the filled details using click-to-chat
+                // Convert local Sri Lankan number (starting with 0) to international (+94) format
+                // User provided number: 0770056533 -> international: 94770056533
+                try {
+                    const phone = '94770056533';
+                    const text = `Name: ${name}\nEmail: ${email}\nMessage: ${message}`;
+                    const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+
+                    // Open WhatsApp in a new tab/window
+                    window.open(waUrl, '_blank');
+
+                    showNotification('Opening WhatsApp with your message...', 'success');
+
+                    // Reset form after opening
+                    this.reset();
+                } catch (err) {
+                    console.error(err);
+                    showNotification('Unable to open WhatsApp. Please try manually.', 'error');
+                }
         });
     }
 
