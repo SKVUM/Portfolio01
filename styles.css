@@ -14,13 +14,13 @@
 /* Dark Mode Variables */
 html.dark-mode {
     --primary-color: #00d084;
-    --secondary-color: #1a1a1a;
+    --secondary-color: #0b0f10; /* updated dark background to match attached image */
     --dark-color: #ffffff;
-    --light-color: #2a2a2a;
-    --text-color: #e0e0e0;
+    --light-color: #0f1415; /* subtle lighter tone for panels */
+    --text-color: #dfeff0; /* slightly cooler light text for contrast */
     --accent-color: #0066ff;
     --red-accent: #ff3366;
-    --border-color: #3a3a3a;
+    --border-color: #163033;
 }
 
 /* ==================== Global Styles - Mobile First ==================== */
@@ -282,6 +282,14 @@ html.dark-mode .theme-toggle:hover {
     min-height: auto;
     position: relative;
     overflow: hidden;
+}
+
+.animated-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    opacity: 0.6;
 }
 
 .hero::before {
