@@ -1,101 +1,3 @@
-// ==================== Animated Geometric Background ==================== //
-function initAnimatedBackground() {
-    const canvas = document.getElementById('animationCanvas');
-    if (!canvas) return;
-    
-    const ctx = canvas.getContext('2d');
-    let animationId;
-    
-    // Set canvas size
-    function resizeCanvas() {
-        const heroSection = canvas.parentElement;
-        canvas.width = heroSection.clientWidth;
-        canvas.height = heroSection.clientHeight;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-    
-    // Create particles/nodes
-    const particles = [];
-    const particleCount = 50;
-    
-    class Particle {
-        constructor() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.vx = (Math.random() - 0.5) * 0.5;
-            this.vy = (Math.random() - 0.5) * 0.5;
-            this.radius = Math.random() * 2 + 1;
-            this.opacity = Math.random() * 0.5 + 0.3;
-        }
-        
-        update() {
-            this.x += this.vx;
-            this.y += this.vy;
-            
-            // Bounce off edges
-            if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-            if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-            
-            // Keep within bounds
-            this.x = Math.max(0, Math.min(canvas.width, this.x));
-            this.y = Math.max(0, Math.min(canvas.height, this.y));
-        }
-        
-        draw() {
-            ctx.fillStyle = `rgba(0, 208, 132, ${this.opacity})`;
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fill();
-        }
-    }
-    
-    // Initialize particles
-    for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle());
-    }
-    
-    // Draw connection lines between nearby particles
-    function drawConnections() {
-        const maxDistance = 150;
-        for (let i = 0; i < particles.length; i++) {
-            for (let j = i + 1; j < particles.length; j++) {
-                const dx = particles[i].x - particles[j].x;
-                const dy = particles[i].y - particles[j].y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                
-                if (distance < maxDistance) {
-                    const opacity = (1 - distance / maxDistance) * 0.3;
-                    ctx.strokeStyle = `rgba(0, 208, 132, ${opacity})`;
-                    ctx.lineWidth = 1;
-                    ctx.beginPath();
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.stroke();
-                }
-            }
-        }
-    }
-    
-    // Animation loop
-    function animate() {
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        particles.forEach(particle => {
-            particle.update();
-            particle.draw();
-        });
-        
-        drawConnections();
-        animationId = requestAnimationFrame(animate);
-    }
-    
-    animate();
-    
-    return () => cancelAnimationFrame(animationId);
-}
-
 // ==================== Dark Mode Toggle ==================== //
 function initDarkMode() {
     const themeToggle = document.getElementById('theme-toggle');
@@ -139,7 +41,6 @@ function initDarkMode() {
 
 // ==================== Mobile Menu Toggle ==================== //
 document.addEventListener('DOMContentLoaded', function() {
-    initAnimatedBackground();
     initDarkMode();
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
